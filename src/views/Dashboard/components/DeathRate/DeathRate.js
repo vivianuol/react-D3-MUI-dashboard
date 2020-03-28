@@ -8,7 +8,7 @@ import {
   Grid,
   Typography,
   Avatar,
-  LinearProgress
+  
 } from '@material-ui/core';
 import InsertChartIcon from '@material-ui/icons/InsertChartOutlined';
 
@@ -38,7 +38,7 @@ const useStyles = makeStyles(theme => ({
   }
 }));
 
-const TasksProgress = props => {
+const DeathRate = props => {
   const { className, ...rest } = props;
 
   const classes = useStyles();
@@ -60,28 +60,28 @@ const TasksProgress = props => {
               gutterBottom
               variant="body2"
             >
-              TASKS PROGRESS
+              Death Rate
             </Typography>
             <Typography variant="h3">75.5%</Typography>
           </Grid>
-          <Grid item>
+          {/* <Grid item>
             <Avatar className={classes.avatar}>
               <InsertChartIcon className={classes.icon} />
             </Avatar>
-          </Grid>
+          </Grid> */}
         </Grid>
-        <LinearProgress
+        {/* <LinearProgress
           className={classes.progress}
           value={75.5}
           variant="determinate"
-        />
+        /> */}
       </CardContent>
     </Card>
   );
 };
 
-TasksProgress.propTypes = {
+DeathRate.propTypes = {
   className: PropTypes.string
 };
 
-export default TasksProgress;
+export default DeathRate;

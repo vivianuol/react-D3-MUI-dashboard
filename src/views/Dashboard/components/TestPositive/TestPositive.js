@@ -40,7 +40,7 @@ const useStyles = makeStyles(theme => ({
   }
 }));
 
-const Budget = props => {
+const TestPositive = props => {
   const { className, ...rest } = props;
 
   const classes = useStyles();
@@ -62,7 +62,7 @@ const Budget = props => {
               gutterBottom
               variant="body2"
             >
-              BUDGET
+              Test Positive
             </Typography>
             <Typography variant="h3">$24,000</Typography>
           </Grid>
@@ -92,8 +92,8 @@ const Budget = props => {
   );
 };
 
-Budget.propTypes = {
+TestPositive.propTypes = {
   className: PropTypes.string
 };
 
-export default Budget;
+export default TestPositive;

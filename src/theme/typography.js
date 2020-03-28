@@ -2,7 +2,7 @@ import palette from './palette';
 
 export default {
   h1: {
-    color: palette.text.primary,
+    color: palette.white,
     fontWeight: 500,
     fontSize: '35px',
     letterSpacing: '-0.24px',

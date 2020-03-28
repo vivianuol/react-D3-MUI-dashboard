@@ -79,7 +79,7 @@ material-react-dashboard
 	│	├── Dashboard
 	│	├── Icons
 	│	├── NotFound
-	│	├── ProductList
+	│	├── ReactD3Example
 	│	├── Settings
 	│	├── SignIn
 	│	├── SignUp

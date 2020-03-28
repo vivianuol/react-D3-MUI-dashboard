@@ -6,14 +6,12 @@ import { Main as MainLayout, Minimal as MinimalLayout } from './layouts';
 
 import {
   Dashboard as DashboardView,
-  ProductList as ProductListView,
+  ReactD3Example as ReactD3,
   UserList as UserListView,
   Typography as TypographyView,
   Icons as IconsView,
   Account as AccountView,
   Settings as SettingsView,
-  SignUp as SignUpView,
-  SignIn as SignInView,
   NotFound as NotFoundView
 } from './views';
 
@@ -38,10 +36,10 @@ const Routes = () => {
         path="/users"
       />
       <RouteWithLayout
-        component={ProductListView}
+        component={ReactD3}
         exact
         layout={MainLayout}
-        path="/products"
+        path="/react-d3"
       />
       <RouteWithLayout
         component={TypographyView}
@@ -66,18 +64,6 @@ const Routes = () => {
         exact
         layout={MainLayout}
         path="/settings"
-      />
-      <RouteWithLayout
-        component={SignUpView}
-        exact
-        layout={MinimalLayout}
-        path="/sign-up"
-      />
-      <RouteWithLayout
-        component={SignInView}
-        exact
-        layout={MinimalLayout}
-        path="/sign-in"
       />
       <RouteWithLayout
         component={NotFoundView}

@@ -1,12 +1,14 @@
-import React from 'react';
+import React, { useRef, useEffect } from 'react';
 import { makeStyles } from '@material-ui/styles';
-import { Grid } from '@material-ui/core';
+import { spacing } from '@material-ui/system';
+import { Grid, Card, CardContent, Typography, Paper } from '@material-ui/core';
+import * as d3 from 'd3';
 
 import {
-  Budget,
-  TotalUsers,
-  TasksProgress,
-  TotalProfit,
+  TestPositive,
+  Hospitalized,
+  DeathRate,
+  Total,
   LatestSales,
   UsersByDevice,
   LatestProducts,
@@ -15,27 +17,52 @@ import {
 
 const useStyles = makeStyles(theme => ({
   root: {
-    padding: theme.spacing(4)
+    padding: theme.spacing(4),
+  },
+  section: {
+    margin: theme.spacing(2)
   }
 }));
 
 const Dashboard = () => {
   const classes = useStyles();
+  const myHeader1Ref = useRef(null);
+  const myHeader2Ref = useRef(null);
+
+  useEffect(()=> {
+    console.log('select myRef');
+    console.log(d3.select(myHeader1Ref));
+    d3.select(myHeader1Ref.current)
+      .append('div')
+      .attr('class', 'title')
+      .text('Case Summary')
+      .style('color', '#784a62')
+      .style('padding','5px')
+
+    d3.select(myHeader2Ref.current)
+          .append('div')
+          .attr('class', 'title')
+          .text('Charts')
+          .style('color', '#e5c100')
+          .style('padding','5px')
+
+  })
+   
 
   return (
     <div className={classes.root}>
-      <Grid
-        container
-        spacing={4}
-      >
-        <Grid
-          item
-          lg={3}
-          sm={6}
-          xl={3}
-          xs={12}
-        >
-          <Budget />
+      <Grid className={classes.section} container spacing={2}>
+        <Grid item xs={12}>
+          <Card className={classes.paper}>
+          <Typography
+              className={classes.title}
+              color="textSecondary"
+              variant="h3"
+              ref={myHeader1Ref}
+            >
+          
+            </Typography>
+          </Card>
         </Grid>
         <Grid
           item
@@ -44,7 +71,7 @@ const Dashboard = () => {
           xl={3}
           xs={12}
         >
-          <TotalUsers />
+          <TestPositive />
         </Grid>
         <Grid
           item
@@ -53,7 +80,7 @@ const Dashboard = () => {
           xl={3}
           xs={12}
         >
-          <TasksProgress />
+          <Hospitalized />
         </Grid>
         <Grid
           item
@@ -62,7 +89,31 @@ const Dashboard = () => {
           xl={3}
           xs={12}
         >
-          <TotalProfit />
+          <DeathRate />
+        </Grid>
+        <Grid
+          item
+          lg={3}
+          sm={6}
+          xl={3}
+          xs={12}
+        >
+          <Total />
+        </Grid>
+      </Grid>
+        
+        <Grid className={classes.section} container spacing={2}>
+
+        <Grid item xs={12}>
+          <Card className={classes.paper}>
+          <Typography
+              className={classes.title}
+              color="textSecondary"
+              variant="h3"
+              ref={myHeader2Ref}
+            >
+            </Typography>
+          </Card>
         </Grid>
         <Grid
           item

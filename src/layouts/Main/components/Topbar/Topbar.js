@@ -7,6 +7,7 @@ import { AppBar, Toolbar, Badge, Hidden, IconButton } from '@material-ui/core';
 import MenuIcon from '@material-ui/icons/Menu';
 import NotificationsIcon from '@material-ui/icons/NotificationsOutlined';
 import InputIcon from '@material-ui/icons/Input';
+// import {h1, subtitle1 as Subtitle} from '../../../../theme/typography'
 
 const useStyles = makeStyles(theme => ({
   root: {
@@ -17,7 +18,12 @@ const useStyles = makeStyles(theme => ({
   },
   signOutButton: {
     marginLeft: theme.spacing(1)
-  }
+  },
+  logo: {
+    color: "#ffffff",
+    fontFamily: "Cormorant+Garamond"
+  },
+
 }));
 
 const Topbar = props => {
@@ -34,10 +40,8 @@ const Topbar = props => {
     >
       <Toolbar>
         <RouterLink to="/">
-          <img
-            alt="Logo"
-            src="/images/logos/logo--white.svg"
-          />
+          <h1 className={classes.logo}>COVID-19 in US</h1>
+          <h3>Real Time Update with Credable Source</h3>
         </RouterLink>
         <div className={classes.flexGrow} />
         <Hidden mdDown>
