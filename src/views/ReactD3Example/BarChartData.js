@@ -28,6 +28,9 @@ const BarChartData = () => {
 
   useEffect(() => {
     csv('/static/data/react-d3-data.csv', type).then(data => {
+
+      console.log("react-d3-example")
+      console.log(data)
       const dataClean = filterData(data)
       setBarChartData(
         prepareBarChartData(dataClean).sort((a, b) => {

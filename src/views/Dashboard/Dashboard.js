@@ -1,18 +1,29 @@
-import React, { useRef, useEffect } from 'react';
+import React, { useRef, useEffect, useState } from 'react';
 import { makeStyles } from '@material-ui/styles';
 import { spacing } from '@material-ui/system';
-import { Grid, Card, CardContent, Typography, Paper } from '@material-ui/core';
+import {
+  Grid,
+  Typography,
+  Card,
+  CardHeader,
+  CardContent,
+  CardActions,
+  Divider,
+  Button } from '@material-ui/core';
 import * as d3 from 'd3';
+import { json } from 'd3-fetch';
 
 import {
   TestPositive,
   Hospitalized,
   DeathRate,
   Total,
-  LatestSales,
+  AbsoluteCases,
+  IncreasedCases,
   UsersByDevice,
   LatestProducts,
-  LatestOrders
+  LatestOrders,
+  SimpleSelect
 } from './components';
 
 const useStyles = makeStyles(theme => ({
@@ -27,43 +38,68 @@ const useStyles = makeStyles(theme => ({
 const Dashboard = () => {
   const classes = useStyles();
   const myHeader1Ref = useRef(null);
-  const myHeader2Ref = useRef(null);
+
+  const [stateUS, setStateUS] = useState('');
+
+  // const onChange = (s)=> {
+  //   console.log('selected state')
+  //   console.log(s);
+  //   return setStateUS(s);
+  // }
+
 
   useEffect(()=> {
-    console.log('select myRef');
-    console.log(d3.select(myHeader1Ref));
-    d3.select(myHeader1Ref.current)
-      .append('div')
-      .attr('class', 'title')
-      .text('Case Summary')
-      .style('color', '#784a62')
-      .style('padding','5px')
+    
+    
+    // d3.select(myHeader1Ref.current)
+    //   .append('div')
+    //   .attr('class', 'title')
+    //   .text('Case Summary')
+    //   .style('color', '#784a62')
+    //   .style('padding','5px')
+    
 
-    d3.select(myHeader2Ref.current)
-          .append('div')
-          .attr('class', 'title')
-          .text('Charts')
-          .style('color', '#e5c100')
-          .style('padding','5px')
+        json('https://covidtracking.com/api/us/daily').then(data=>{
+          console.log(data[0].dateChecked)
 
-  })
+        d3.select(myHeader1Ref.current)
+          .append('p')
+          .text(`updated at: ${data[0].dateChecked}`)
+          .style('font-size','12px')
+          .style('padding','8px')
+        })
+
+
+  },[])
    
 
   return (
     <div className={classes.root}>
       <Grid className={classes.section} container spacing={2}>
+        
         <Grid item xs={12}>
           <Card className={classes.paper}>
-          <Typography
+          <CardHeader
               className={classes.title}
               color="textSecondary"
               variant="h3"
               ref={myHeader1Ref}
-            >
-          
-            </Typography>
+            />
+            <Divider />
           </Card>
         </Grid>
+
+        <Grid item xs={12}>
+          <Card className={classes.paper}>
+          <SimpleSelect selectState={s => {
+            console.log('selected state')
+            console.log(s);
+            console.log(stateUS);
+            return setStateUS(s)
+          } }/>
+          </Card>
+        </Grid>
+
         <Grid
           item
           lg={3}
@@ -71,7 +107,7 @@ const Dashboard = () => {
           xl={3}
           xs={12}
         >
-          <TestPositive />
+          <TestPositive state={stateUS}/>
         </Grid>
         <Grid
           item
@@ -80,7 +116,7 @@ const Dashboard = () => {
           xl={3}
           xs={12}
         >
-          <Hospitalized />
+          <Hospitalized state={stateUS}/>
         </Grid>
         <Grid
           item
@@ -89,7 +125,7 @@ const Dashboard = () => {
           xl={3}
           xs={12}
         >
-          <DeathRate />
+          <DeathRate state={stateUS}/>
         </Grid>
         <Grid
           item
@@ -98,49 +134,25 @@ const Dashboard = () => {
           xl={3}
           xs={12}
         >
-          <Total />
+          <Total state={stateUS}/>
         </Grid>
       </Grid>
         
         <Grid className={classes.section} container spacing={2}>
 
-        <Grid item xs={12}>
-          <Card className={classes.paper}>
-          <Typography
-              className={classes.title}
-              color="textSecondary"
-              variant="h3"
-              ref={myHeader2Ref}
-            >
-            </Typography>
-          </Card>
+        <Grid
+          item
+          lg={6}
+          xs={12}
+        >
+          <AbsoluteCases state={stateUS}/>
         </Grid>
         <Grid
           item
-          lg={8}
-          md={12}
-          xl={9}
+          lg={6}
           xs={12}
         >
-          <LatestSales />
-        </Grid>
-        <Grid
-          item
-          lg={4}
-          md={6}
-          xl={3}
-          xs={12}
-        >
-          <UsersByDevice />
-        </Grid>
-        <Grid
-          item
-          lg={4}
-          md={6}
-          xl={3}
-          xs={12}
-        >
-          <LatestProducts />
+          <IncreasedCases state={stateUS}/>
         </Grid>
         <Grid
           item

@@ -11,7 +11,8 @@ import InputIcon from '@material-ui/icons/Input';
 
 const useStyles = makeStyles(theme => ({
   root: {
-    boxShadow: 'none'
+    boxShadow: 'none',
+    padding: '10px'
   },
   flexGrow: {
     flexGrow: 1
@@ -41,7 +42,9 @@ const Topbar = props => {
       <Toolbar>
         <RouterLink to="/">
           <h1 className={classes.logo}>COVID-19 in US</h1>
-          <h3>Real Time Update with Credable Source</h3>
+          <h3 className={classes.logo}>
+          <span style={{padding: '20px'}}></span>
+          Real Time Update with Credible Source</h3>
         </RouterLink>
         <div className={classes.flexGrow} />
         <Hidden mdDown>

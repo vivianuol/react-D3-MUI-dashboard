@@ -1,10 +1,11 @@
-import React from 'react';
+import React, { useEffect, useRef } from 'react';
 import clsx from 'clsx';
 import PropTypes from 'prop-types';
 import { makeStyles } from '@material-ui/styles';
 import { Card, CardContent, Grid, Typography, Avatar } from '@material-ui/core';
-import ArrowUpwardIcon from '@material-ui/icons/ArrowUpward';
 import PeopleIcon from '@material-ui/icons/PeopleOutlined';
+import * as d3 from 'd3';
+import { json } from 'd3-fetch';
 
 const useStyles = makeStyles(theme => ({
   root: {
@@ -44,6 +45,35 @@ const Hospitalized = props => {
   const { className, ...rest } = props;
 
   const classes = useStyles();
+  const hospRef = useRef(null);
+  const rateRef = useRef(null);
+
+  const switchURL = () => {
+    if ( props.state == '' ) {
+      return json("https://covidtracking.com/api/us/daily")
+    } else {
+      return json(`https://covidtracking.com/api/states/daily?state=${props.state}`)
+    }
+  };
+
+  useEffect(() => {
+
+    d3.select(rateRef.current).selectAll('p').text('');
+
+    switchURL().then(data=>{
+      var hospToday = data[0].hospitalized==null? 0 : data[0].hospitalized;
+      var posToday = data[0].positive==null? 1 : data[0].positive;
+
+      var hosRate = Math.round((hospToday/posToday)*100) + "%";
+
+      d3.select(hospRef.current)
+        .text(hospToday)
+
+      d3.select(rateRef.current)
+        .append("p")
+        .text(hosRate + "(hospitality rate)")
+    })
+  },[props.state])
 
   return (
     <Card
@@ -64,7 +94,10 @@ const Hospitalized = props => {
             >
               Hospitalized
             </Typography>
-            <Typography variant="h3">1,600</Typography>
+            <Typography 
+                variant="h3"
+                ref= {hospRef}>
+            </Typography>
           </Grid>
           <Grid item>
             <Avatar className={classes.avatar}>
@@ -73,18 +106,17 @@ const Hospitalized = props => {
           </Grid>
         </Grid>
         <div className={classes.difference}>
-          <ArrowUpwardIcon className={classes.differenceIcon} />
           <Typography
             className={classes.differenceValue}
             variant="body2"
+            ref={rateRef}
           >
-            16%
           </Typography>
           <Typography
             className={classes.caption}
             variant="caption"
           >
-            Since last month
+            Since yesterday
           </Typography>
         </div>
       </CardContent>
