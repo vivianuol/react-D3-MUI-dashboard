@@ -20,9 +20,6 @@ import {
   Total,
   AbsoluteCases,
   IncreasedCases,
-  UsersByDevice,
-  LatestProducts,
-  LatestOrders,
   SimpleSelect
 } from './components';
 
@@ -153,15 +150,6 @@ const Dashboard = () => {
           xs={12}
         >
           <IncreasedCases state={stateUS}/>
-        </Grid>
-        <Grid
-          item
-          lg={8}
-          md={12}
-          xl={9}
-          xs={12}
-        >
-          <LatestOrders />
         </Grid>
       </Grid>
     </div>
